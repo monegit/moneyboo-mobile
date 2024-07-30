@@ -1,11 +1,20 @@
 import moment from "moment";
 
+function getSafeDate(year: number, month: number): Array<number> {
+  if (month < 0) {
+    return [year - 1, 11];
+  } else if (month > 11) {
+    return [year + 1, 0];
+  } else {
+    return [year, month];
+  }
+}
+
 export function getMonthInfo(year: number, month: number) {
-  const date = moment([year, month - 1]);
+  const date = moment(getSafeDate(year, month - 1));
 
   return {
-    date: date,
-    length: date.daysInMonth(),
+    length: date.clone().daysInMonth(),
     firstWeekDay: date.clone().startOf("month").toDate().getDay(),
     lastWeekDay: date.clone().endOf("month").toDate().getDay(),
   };

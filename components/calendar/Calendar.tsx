@@ -1,15 +1,13 @@
-import { css } from "@emotion/native";
-import { Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Dimensions, FlatList, View, Text, StyleSheet } from "react-native";
+import { FlatList, View, Text, StyleSheet } from "react-native";
+
+import { getMonthInfo } from "@/tools/calendar";
+import responsive from "@/tools/ratio";
 
 import CalendarDays from "./CalendarDays";
-import responsive from "@/tools/ratio";
 import CalendarWeekDays from "./CalendarWeekDays";
 import TextButton from "../button/TextButton";
 import Summary from "../summary/Summary";
-import moment from "moment";
-import { getMonthInfo } from "@/tools/calendar";
 
 type CalendarDate = { year: number; month: number };
 type CalendarDay = { isCurrentMonth: boolean; day: number; weekday: number };
@@ -46,7 +44,7 @@ const maxCalendarDaysLength = 7 * 6;
 
 function Calendar() {
   const [calendarDays, setCalendarDays] = useState<CalendarDay[]>();
-  const [date, setDate] = useState<CalendarDate>({ year: 2024, month: 7 });
+  const [date, setDate] = useState<CalendarDate>({ year: 2023, month: 12 });
 
   useEffect(() => {
     const prevDaysInMonthList = Array.from<CalendarDay[], CalendarDay>(
@@ -80,22 +78,21 @@ function Calendar() {
       (_, i) => {
         return { isCurrentMonth: false, day: i + 1, weekday: 0 };
       }
-      // (_, i) => i + 1
     );
 
-    console.log(prevDaysInMonthList);
+    console.log(getMonthInfo(date.year, date.month).firstWeekDay);
 
     setCalendarDays([
       ...prevDaysInMonthList,
       ...currentDaysInMonthList,
       ...nextDaysInMonthList,
     ]);
-  }, []);
+  }, [date]);
 
   return (
     <View style={{ flex: 1, gap: responsive(16.1) }}>
       <View style={styles.title}>
-        <TextButton text="2024년 7월" />
+        <TextButton text={`${date.year}년 ${date.month}월`} />
         <Text
           style={{
             fontFamily: "Inter",
@@ -129,7 +126,6 @@ function Calendar() {
                 width: responsive(322.8),
               },
             ]}
-            // style={[styles.self, { width: width - width * 0.21875 }]}
             data={calendarDays}
             renderItem={(item) => (
               <CalendarDays
