@@ -2,14 +2,15 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import responsive from "@/tools/ratio";
-import HorizontalLine from "../HorizontalLine";
 
 interface Props {
   text: string;
+  fontColor?: string;
+  fontSize?: number;
   type?: "spent" | "income";
   circleSize?: number;
+  summaryDepth?: number;
   isBold?: boolean;
-  fontSize?: number;
   gap?: number;
   pointSize?: number;
 }
@@ -29,14 +30,14 @@ const styles = StyleSheet.create({
 });
 
 function Summary(props: Props) {
-  let color = "#eeeeee";
+  let circleColor = "#eeeeee";
 
   switch (props.type) {
     case "spent":
-      color = "#4B4DDC";
+      circleColor = `rgba(75, 77, 220,${1 - 0.2 * (props.summaryDepth ?? 0)})`;
       break;
     case "income":
-      color = "#E07234";
+      circleColor = `rgba(224, 114, 52,${1 - 0.2 * (props.summaryDepth ?? 0)})`;
       break;
   }
 
@@ -53,7 +54,7 @@ function Summary(props: Props) {
         style={[
           styles.circle,
           {
-            backgroundColor: color,
+            backgroundColor: circleColor,
             width: props.circleSize ?? responsive(7),
             height: props.circleSize ?? responsive(7),
           },
@@ -63,6 +64,7 @@ function Summary(props: Props) {
         style={[
           styles.text,
           {
+            color: props.fontColor ?? "#444444",
             fontFamily: "Inter",
             fontSize: props.fontSize ?? responsive(8.3),
             fontWeight: props.isBold ? "bold" : "normal",

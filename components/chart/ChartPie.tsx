@@ -3,7 +3,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { Path, Svg } from "react-native-svg";
 import Summary from "../summary/Summary";
-import HorizontalLine from "../HorizontalLine";
+import SolidLIne from "../line/SolidLIne";
 
 interface Props {
   // angle: {
@@ -13,8 +13,11 @@ interface Props {
   size: number;
   dataSet: { price: number; name: string }[];
   colorSet: string[];
+  type: "spent" | "income";
   // legendFontSize: number;
 }
+
+const mockData = [{ title: "문구점", money: 1000 }];
 
 function ChartPie(props: Props) {
   const size = responsive(props.size);
@@ -94,41 +97,41 @@ function ChartPie(props: Props) {
         })}
       </Svg>
 
-      <View style={{ gap: responsive(2) }}>
-        <View style={{ flexDirection: "row" }}>
-          <Summary
-            fontSize={responsive(12)}
-            text={"벽제갈비"}
-            isBold
-            gap={responsive(7)}
-          />
-          <HorizontalLine />
-          <Text>150,000원</Text>
-        </View>
-        <Summary
-          fontSize={responsive(12)}
-          text={"벽제갈비"}
-          isBold
-          gap={responsive(7)}
-        />
-        <Summary
-          fontSize={responsive(12)}
-          text={"벽제갈비"}
-          isBold
-          gap={responsive(7)}
-        />
-        <Summary
-          fontSize={responsive(12)}
-          text={"벽제갈비"}
-          isBold
-          gap={responsive(7)}
-        />
-        <Summary
-          fontSize={responsive(12)}
-          text={"벽제갈비"}
-          isBold
-          gap={responsive(7)}
-        />
+      <View
+        style={{
+          gap: responsive(2),
+          width: responsive(221),
+        }}
+      >
+        {props.dataSet.map((item, index) => (
+          <View
+            style={{
+              flexDirection: "row",
+              gap: responsive(7),
+            }}
+          >
+            <Summary
+              type={props.type}
+              summaryDepth={index}
+              fontSize={responsive(12)}
+              text={item.name}
+              isBold
+              gap={responsive(7)}
+            />
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <SolidLIne color="#E0E0E0" />
+            </View>
+            <Text
+              style={{
+                fontSize: responsive(12),
+                color: "#444444",
+                fontWeight: "bold",
+              }}
+            >
+              {item.price}원
+            </Text>
+          </View>
+        ))}
       </View>
     </View>
   );

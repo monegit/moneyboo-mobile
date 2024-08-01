@@ -13,11 +13,10 @@ import Button from "@/components/button/Button";
 import Calendar from "@/components/calendar/Calendar";
 import CalendarDays from "@/components/calendar/CalendarDays";
 import CalendarWeekDays from "@/components/calendar/CalendarWeekDays";
-
 import responsive from "@/tools/ratio";
-import HorizontalLine from "@/components/HorizontalLine";
 import ChartPie from "@/components/chart/ChartPie";
 import DashedLine from "@/components/line/DashedLine";
+import { incomeColorSet, spentColorSet } from "@/styles/chart";
 
 const styles = {
   self: css`
@@ -65,17 +64,12 @@ function index() {
               fontWeight: "bold",
             }}
           >
-            6월 대표 소비
+            6월 종합 소비
           </Text>
           <ChartPie
+            type="spent"
             size={responsive(80)}
-            colorSet={[
-              "rgba(75,77,220,1)",
-              "rgba(75,77,220,0.8)",
-              "rgba(75,77,220,0.6)",
-              "rgba(75,77,220,0.4)",
-              "rgba(75,77,220,0.2)",
-            ]}
+            colorSet={spentColorSet}
             dataSet={[
               { price: 200000, name: "편의점" },
               { price: 50000, name: "공과금" },
@@ -86,14 +80,9 @@ function index() {
           />
         </View>
         <ChartPie
+          type="income"
           size={responsive(80)}
-          colorSet={[
-            "rgba(75,77,220,1)",
-            "rgba(75,77,220,0.8)",
-            "rgba(75,77,220,0.6)",
-            "rgba(75,77,220,0.4)",
-            "rgba(75,77,220,0.2)",
-          ]}
+          colorSet={incomeColorSet}
           dataSet={[
             { price: 200000, name: "편의점" },
             { price: 50000, name: "공과금" },
