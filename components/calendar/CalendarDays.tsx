@@ -4,20 +4,16 @@ import { ReactNativeStyle, css } from "@emotion/native";
 import React, { useEffect, useState } from "react";
 import { Pressable, Text } from "react-native";
 
-type DayType =
-  | "today"
-  | "spent"
-  | "income"
-  | "schedule/spent"
-  | "schedule/income";
+type DayType = "spent" | "income" | "schedule/spent" | "schedule/income";
 
 interface Props {
   /**
    * 일별 상태 타입
    */
   type?: DayType;
+  isToday?: boolean;
   day: number;
-  isCurrentMonth: boolean;
+  isCurrentMonth: boolean | undefined;
 }
 
 const styles = {
@@ -66,39 +62,40 @@ function CalendarDays(props: Props) {
   }>();
 
   useEffect(() => {
-    switch (props.type) {
-      case "today":
-        setDaysType({ template: styles.template.today, text: styles.text.red });
-        break;
-      case "spent":
-        setDaysType({
-          template: styles.template.spent,
-          text: styles.text.white,
-        });
-        break;
-      case "income":
-        setDaysType({
-          template: styles.template.income,
-          text: styles.text.white,
-        });
-        break;
-      case "schedule/spent":
-        setDaysType({
-          template: styles.template.schedule.spent,
-          text: styles.text.black,
-        });
-        break;
-      case "schedule/income":
-        setDaysType({
-          template: styles.template.schedule.income,
-          text: styles.text.black,
-        });
-        break;
-      default:
-        setDaysType({
-          template: styles.template.normal,
-          text: styles.text.black,
-        });
+    if (props.isToday === true)
+      setDaysType({ template: styles.template.today, text: styles.text.red });
+    else {
+      switch (props.type) {
+        case "spent":
+          setDaysType({
+            template: styles.template.spent,
+            text: styles.text.white,
+          });
+          break;
+        case "income":
+          setDaysType({
+            template: styles.template.income,
+            text: styles.text.white,
+          });
+          break;
+        case "schedule/spent":
+          setDaysType({
+            template: styles.template.schedule.spent,
+            text: styles.text.black,
+          });
+          break;
+        case "schedule/income":
+          setDaysType({
+            template: styles.template.schedule.income,
+            text: styles.text.black,
+          });
+          break;
+        default:
+          setDaysType({
+            template: styles.template.normal,
+            text: styles.text.black,
+          });
+      }
     }
   }, [props.type]);
 

@@ -1,32 +1,72 @@
-import moment from "moment";
+import moment, { Moment } from "moment";
 
-function getSafeDate(year: number, month: number): Array<number> {
-  if (month < 0) {
-    return [year - 1, 11];
-  } else if (month > 11) {
-    return [year + 1, 0];
-  } else {
-    return [year, month];
+type CalendarDay = {
+  day: number;
+  weekday: number;
+  isCurrentMonth?: boolean;
+  isToday?: boolean;
+};
+
+export class CalendarTool {
+  private date: Moment;
+  private maxCalendarDaysLength: number;
+  private today = moment().toDate();
+
+  constructor(year: number, month: number, maxCalendarDaysLength: number) {
+    this.date = moment([year, month - 1]);
+    this.maxCalendarDaysLength = maxCalendarDaysLength;
   }
-}
 
-export function getMonthInfo(year: number, month: number) {
-  const date = moment(getSafeDate(year, month - 1));
+  private addWeekday(days: CalendarDay[]): number {
+    if (days.length === 0) return 0;
+    else if (days[days.length - 1].weekday === 6) return 0;
+    else return days[days.length - 1].weekday + 1;
+  }
 
-  return {
-    length: date.clone().daysInMonth(),
-    firstWeekDay: date.clone().startOf("month").toDate().getDay(),
-    lastWeekDay: date.clone().endOf("month").toDate().getDay(),
-  };
-}
+  public getCalendarTableData(): Array<CalendarDay> {
+    let days: CalendarDay[] = [];
 
-export function getTodayInfo() {
-  const date = moment();
+    // Prev Month Days
+    for (
+      let day =
+        this.date.clone().add(-1, "month").daysInMonth() - this.date.day() + 1;
+      day <= this.date.clone().add(-1, "month").daysInMonth();
+      day++
+    ) {
+      days.push({
+        day: day,
+        weekday: this.addWeekday(days),
+      });
+    }
 
-  return {
-    years: date.year(),
-    months: date.month(),
-    days: date.date(),
-    weekday: date.day(),
-  };
+    // Current Month Days
+    for (let day = 1; day <= this.date.daysInMonth(); day++) {
+      days.push({
+        day: day,
+        weekday: this.addWeekday(days),
+        isCurrentMonth: true,
+        isToday:
+          this.date.year() === this.today.getFullYear() &&
+          this.date.month() === this.today.getMonth() &&
+          day === this.today.getDate()
+            ? true
+            : false,
+      });
+    }
+
+    // Next Month Days
+    const progressDaysLength = days.length;
+    for (
+      let day = 1;
+      day <= this.maxCalendarDaysLength - progressDaysLength;
+      day++
+    ) {
+      days.push({
+        day: day,
+        weekday: this.addWeekday(days),
+      });
+    }
+
+    return days;
+  }
 }

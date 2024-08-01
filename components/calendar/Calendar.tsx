@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, View, Text, StyleSheet } from "react-native";
 
-import { getMonthInfo } from "@/tools/calendar";
+import { CalendarTool } from "@/tools/calendar";
 import responsive from "@/tools/ratio";
 
 import CalendarDays from "./CalendarDays";
@@ -10,7 +10,11 @@ import TextButton from "../button/TextButton";
 import Summary from "../summary/Summary";
 
 type CalendarDate = { year: number; month: number };
-type CalendarDay = { isCurrentMonth: boolean; day: number; weekday: number };
+type CalendarDay = {
+  isCurrentMonth: boolean;
+  day: number;
+  weekday: number;
+};
 
 const styles = StyleSheet.create({
   self: {
@@ -40,54 +44,13 @@ const week = [
   { day: "토", color: "#3655F5" },
 ];
 
-const maxCalendarDaysLength = 7 * 6;
-
 function Calendar() {
   const [calendarDays, setCalendarDays] = useState<CalendarDay[]>();
-  const [date, setDate] = useState<CalendarDate>({ year: 2023, month: 12 });
+  const [date, setDate] = useState<CalendarDate>({ year: 2024, month: 8 });
 
-  useEffect(() => {
-    const prevDaysInMonthList = Array.from<CalendarDay[], CalendarDay>(
-      {
-        length: getMonthInfo(date.year, date.month).firstWeekDay,
-      },
-      (_, i) => {
-        return {
-          isCurrentMonth: false,
-          day: getMonthInfo(date.year, date.month - 1).length - i,
-          weekday: 0,
-        };
-      }
-    ).reverse();
-    const currentDaysInMonthList = Array.from<CalendarDay[], CalendarDay>(
-      { length: getMonthInfo(date.year, date.month).length },
-      (_, i) => {
-        return {
-          isCurrentMonth: true,
-          day: i + 1,
-          weekday: 0,
-        };
-      }
-    );
-    const nextDaysInMonthList = Array.from<CalendarDay[], CalendarDay>(
-      {
-        length:
-          maxCalendarDaysLength -
-          (prevDaysInMonthList.length + currentDaysInMonthList.length),
-      },
-      (_, i) => {
-        return { isCurrentMonth: false, day: i + 1, weekday: 0 };
-      }
-    );
+  const calendar = new CalendarTool(date.year, date.month, 42);
 
-    console.log(getMonthInfo(date.year, date.month).firstWeekDay);
-
-    setCalendarDays([
-      ...prevDaysInMonthList,
-      ...currentDaysInMonthList,
-      ...nextDaysInMonthList,
-    ]);
-  }, [date]);
+  useEffect(() => {}, [date]);
 
   return (
     <View style={{ flex: 1, gap: responsive(16.1) }}>
@@ -126,11 +89,13 @@ function Calendar() {
                 width: responsive(322.8),
               },
             ]}
-            data={calendarDays}
+            data={calendar.getCalendarTableData()}
             renderItem={(item) => (
               <CalendarDays
                 day={item.item.day}
                 isCurrentMonth={item.item.isCurrentMonth}
+                type={undefined}
+                isToday={item.item.isToday}
               />
             )}
             numColumns={7}
