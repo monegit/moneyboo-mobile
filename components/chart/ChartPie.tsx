@@ -1,15 +1,13 @@
-import responsive from "@/tools/ratio";
 import React from "react";
 import { Text, View } from "react-native";
 import { Path, Svg } from "react-native-svg";
+
+import responsive from "@/tools/ratio";
+
 import Summary from "../summary/Summary";
 import SolidLIne from "../line/SolidLIne";
 
 interface Props {
-  // angle: {
-  //   start: number;
-  //   end: number;
-  // };
   size: number;
   dataSet: { price: number; name: string }[];
   colorSet: string[];
@@ -17,13 +15,7 @@ interface Props {
   // legendFontSize: number;
 }
 
-const mockData = [{ title: "문구점", money: 1000 }];
-
 function ChartPie(props: Props) {
-  const size = responsive(props.size);
-
-  // const startAngle = props.angle.start;
-  // const endAngle = props.angle.end;
   const Pie = (props: {
     color: string;
     data: number;
@@ -31,13 +23,14 @@ function ChartPie(props: Props) {
       start: number;
       end: number;
     };
+    size: number;
   }) => {
     const startAngle = props.angle.start;
     const endAngle = props.angle.end;
 
-    const radius = size / 2;
-    const centerX = size / 2;
-    const centerY = size / 2;
+    const radius = props.size / 2;
+    const centerX = props.size / 2;
+    const centerY = props.size / 2;
 
     const startAngleRadius = (Math.PI / 180) * startAngle;
     const endAngleRadius = (Math.PI / 180) * endAngle;
@@ -74,16 +67,14 @@ function ChartPie(props: Props) {
         alignItems: "center",
       }}
     >
-      <Svg
-        width={responsive(props.size + 1)}
-        height={responsive(props.size + 1)}
-      >
+      <Svg width={props.size + 1} height={props.size + 1}>
         {props.dataSet.map((data, index, array) => {
           const d = array.map((data) => (data.price / sumData) * 360);
 
           return (
             <Pie
               key={index}
+              size={props.size}
               color={props.colorSet[index]}
               data={data.price}
               angle={{

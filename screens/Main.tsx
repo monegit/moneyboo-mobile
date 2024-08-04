@@ -34,7 +34,7 @@ function Main() {
             paddingHorizontal: responsive(20),
           }}
         >
-          <View style={{ flex: 1, gap: responsive(15) }}>
+          <View style={{ flex: 1, gap: responsive(20) }}>
             <Text
               style={{
                 fontSize: responsive(16),
@@ -49,9 +49,9 @@ function Main() {
               size={responsive(80)}
               colorSet={spentColorSet}
               dataSet={[
-                { price: 200000, name: "편의점" },
-                { price: 50000, name: "공과금" },
-                { price: 1300000, name: "애플스토어" },
+                { price: 100000, name: "편의점" },
+                { price: 100000, name: "공과금" },
+                { price: 130000, name: "애플스토어" },
                 { price: 250000, name: "넥슨 캐시" },
                 { price: 750000, name: "벽제갈비" },
               ]}
@@ -80,6 +80,7 @@ function Main() {
           width: "100%",
 
           paddingHorizontal: responsive(20),
+          marginBottom: responsive(20),
 
           pointerEvents: "none",
         }}
