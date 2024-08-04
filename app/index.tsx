@@ -5,7 +5,7 @@ import Main from "@/screens/Main";
 
 function index() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <Main />
     </SafeAreaView>
   );
