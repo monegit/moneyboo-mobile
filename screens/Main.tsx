@@ -8,6 +8,54 @@ import DashedLine from "@/components/line/DashedLine";
 import { spentColorSet, incomeColorSet } from "@/styles/chart";
 import responsive from "@/tools/ratio";
 
+const data = {
+  income: [
+    {
+      date: "2024-07-28",
+      price: 150000,
+      name: "넥슨캐시",
+    },
+    {
+      date: "2024-07-28",
+      price: 1500,
+      name: "쌍쌍바",
+    },
+    {
+      date: "2024-08-05",
+      price: 80000,
+      name: "족발",
+    },
+    {
+      date: "2024-08-06",
+      price: 80000,
+      name: "족발",
+    },
+    {
+      date: "2024-08-07",
+      price: 80000,
+      name: "족발",
+    },
+  ],
+  spent: [
+    {
+      date: "2024-07-28",
+      price: 80000,
+      name: "족발",
+    },
+    {
+      date: "2024-08-01",
+      price: 80000,
+      name: "족발",
+    },
+
+    {
+      date: "2024-08-06",
+      price: 80000,
+      name: "족발",
+    },
+  ],
+};
+
 function Main() {
   return (
     <SafeAreaView style={{ height: "100%" }}>
@@ -25,7 +73,7 @@ function Main() {
             alignSelf: "center",
           }}
         >
-          <Calendar />
+          <Calendar dataSet={data} />
         </View>
         <DashedLine gap={4} dash={4} color={"#bbbbbb"} dashLength={45} />
         <View

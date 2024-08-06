@@ -4,13 +4,11 @@ import { ReactNativeStyle, css } from "@emotion/native";
 import React, { useEffect, useState } from "react";
 import { Pressable, Text } from "react-native";
 
-type DayType = "spent" | "income" | "schedule/spent" | "schedule/income";
-
 interface Props {
   /**
    * 일별 상태 타입
    */
-  type?: DayType;
+  type?: CalendarDayType;
   isToday?: boolean;
   day: number;
   isCurrentMonth: boolean | undefined;
