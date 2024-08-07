@@ -73,7 +73,7 @@ function ChartPie(props: Props) {
 
           return (
             <Pie
-              key={index}
+              key={`${props.type}-${data.name}`}
               size={props.size}
               color={props.colorSet[index]}
               data={data.price}
@@ -96,6 +96,7 @@ function ChartPie(props: Props) {
       >
         {props.dataSet.map((item, index) => (
           <View
+            key={`${item.name}`}
             style={{
               flexDirection: "row",
               gap: responsive(7),

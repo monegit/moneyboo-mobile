@@ -126,7 +126,11 @@ function Calendar(props: Props) {
           }}
         >
           {week.map((item) => (
-            <CalendarWeekDays text={item.day} color={item.color} />
+            <CalendarWeekDays
+              key={item.day}
+              text={item.day}
+              color={item.color}
+            />
           ))}
         </View>
         <View style={{}}>

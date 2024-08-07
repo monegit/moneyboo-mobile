@@ -20,9 +20,11 @@ function DashedLine(props: Props) {
     />
   );
 
-  const line = Array(props?.dashLength).fill(
-    <Line dash={props?.dash} gap={props?.gap} />
-  );
+  const line = Array(props?.dashLength)
+    .fill(null)
+    .map((_, index) => (
+      <Line key={index} dash={props?.dash} gap={props?.gap} />
+    ));
 
   return (
     <View
