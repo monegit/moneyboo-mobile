@@ -1,12 +1,13 @@
 import { Stack } from "expo-router";
 import React from "react";
-import { Pressable, Text } from "react-native";
+import { Pressable, PressableProps, Text } from "react-native";
 import { css } from "@emotion/native";
 import responsive from "@/tools/ratio";
 
 interface Props {
   text: string;
   color?: string;
+  onPress?: PressableProps["onPress"];
 }
 
 const styles = {
@@ -39,6 +40,7 @@ function Button(props: Props) {
           backgroundColor: props.color ?? "#4b4ddc",
         },
       ]}
+      onPress={props.onPress}
     >
       <Text style={[styles.font, { fontSize: responsive(18) }]}>
         {props.text}

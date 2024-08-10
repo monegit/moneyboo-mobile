@@ -118,6 +118,7 @@ function CalendarDays(props: Props) {
           template: styles.template.normal,
           text: styles.text.black,
         });
+        // console.log("dd");
       }}
     >
       <Text

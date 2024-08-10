@@ -1,5 +1,6 @@
 import React from "react";
-import { TouchableOpacity, View, Text, SafeAreaView } from "react-native";
+import { router } from "expo-router";
+import { SafeAreaView, Text, View } from "react-native";
 
 import Button from "@/components/button/Button";
 import Calendar from "@/components/calendar/Calendar";
@@ -56,7 +57,7 @@ const data = {
   ],
 };
 
-function Main() {
+function main() {
   return (
     <SafeAreaView style={{ height: "100%" }}>
       <View
@@ -120,7 +121,8 @@ function Main() {
         </View>
       </View>
       {/* </ScrollView> */}
-      <TouchableOpacity
+
+      <View
         style={{
           position: "absolute",
           bottom: 0,
@@ -129,14 +131,18 @@ function Main() {
 
           paddingHorizontal: responsive(20),
           marginBottom: responsive(20),
-
-          pointerEvents: "none",
         }}
       >
-        <Button text="추가" />
-      </TouchableOpacity>
+        <Button
+          text="추가"
+          onPress={() => {
+            router.push("login");
+            // console.log("dd");
+          }}
+        />
+      </View>
     </SafeAreaView>
   );
 }
 
-export default Main;
+export default main;
