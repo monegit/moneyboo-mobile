@@ -1,6 +1,6 @@
 import responsive from "@/tools/ratio";
-import { template } from "@babel/core";
 import { ReactNativeStyle, css } from "@emotion/native";
+import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Pressable, Text } from "react-native";
 
@@ -114,11 +114,11 @@ function CalendarDays(props: Props) {
         },
       ]}
       onPress={() => {
+        // router.push("modal/addCalendar");
         setDaysType({
           template: styles.template.normal,
           text: styles.text.black,
         });
-        // console.log("dd");
       }}
     >
       <Text

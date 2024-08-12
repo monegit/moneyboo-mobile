@@ -1,6 +1,6 @@
 import React from "react";
 import { router } from "expo-router";
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 
 import SocialButton from "@/components/button/SocialButton";
 import responsive from "@/tools/ratio";
@@ -15,9 +15,13 @@ function login() {
             bottom: 0,
             gap: responsive(10),
             paddingBottom: responsive(50),
+            alignItems: "center",
           }}
         >
-          <SocialButton
+          <Text style={{ color: "#737373", fontSize: responsive(10) }}>
+            당신만의 작은 가계부, 머니부 간편하게 시작하기
+          </Text>
+          {/* <SocialButton
             style={"naver"}
             width={300}
             onPress={() => {
@@ -30,7 +34,7 @@ function login() {
             onPress={() => {
               router.navigate("main");
             }}
-          />
+          /> */}
           <SocialButton
             style={"google"}
             width={300}
@@ -38,13 +42,13 @@ function login() {
               router.navigate("main");
             }}
           />
-          <SocialButton
+          {/* <SocialButton
             style={"apple"}
             width={300}
             onPress={() => {
               router.navigate("main");
             }}
-          />
+          /> */}
         </View>
       </View>
     </SafeAreaView>

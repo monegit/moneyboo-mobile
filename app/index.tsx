@@ -12,7 +12,7 @@ function index() {
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       {/* <Redirect href={"login"} /> */}
       {}
-      <Redirect href={"login"} />
+      <Redirect href={"main"} />
       {/* <Main /> */}
     </SafeAreaView>
   );

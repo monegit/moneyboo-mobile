@@ -7,7 +7,7 @@ interface Props {
   text: string;
   fontColor?: string;
   fontSize?: number;
-  type?: "spent" | "income";
+  type?: AccountType;
   circleSize?: number;
   summaryDepth?: number;
   isBold?: boolean;

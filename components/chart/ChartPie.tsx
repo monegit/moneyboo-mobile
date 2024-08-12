@@ -6,13 +6,13 @@ import responsive from "@/tools/ratio";
 
 import Summary from "../summary/Summary";
 import SolidLIne from "../line/SolidLIne";
+import SummaryDetail from "../summary/SummaryDetail";
 
 interface Props {
   size: number;
   dataSet: { price: number; name: string }[];
   colorSet: string[];
-  type: "spent" | "income";
-  // legendFontSize: number;
+  type: AccountType;
 }
 
 function ChartPie(props: Props) {
@@ -94,35 +94,42 @@ function ChartPie(props: Props) {
           width: responsive(221),
         }}
       >
-        {props.dataSet.map((item, index) => (
-          <View
+        {props.dataSet.map((item) => (
+          <SummaryDetail
             key={`${item.name}`}
-            style={{
-              flexDirection: "row",
-              gap: responsive(7),
-            }}
-          >
-            <Summary
-              type={props.type}
-              summaryDepth={index}
-              fontSize={responsive(12)}
-              text={item.name}
-              isBold
-              gap={responsive(7)}
-            />
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <SolidLIne color="#E0E0E0" />
-            </View>
-            <Text
-              style={{
-                fontSize: responsive(12),
-                color: "#444444",
-                fontWeight: "bold",
-              }}
-            >
-              {item.price}원
-            </Text>
-          </View>
+            form={props.type}
+            name={item.name}
+            price={item.price}
+            depth={0}
+          />
+          //   <View
+          //   key={`${item.name}`}
+          //   style={{
+          //     flexDirection: "row",
+          //     gap: responsive(7),
+          //   }}
+          // >
+          //   <Summary
+          //     type={props.type}
+          //     summaryDepth={index}
+          //     fontSize={responsive(12)}
+          //     text={item.name}
+          //     isBold
+          //     gap={responsive(7)}
+          //   />
+          //   <View style={{ flex: 1, flexDirection: "row" }}>
+          //     <SolidLIne color="#E0E0E0" />
+          //   </View>
+          //   <Text
+          //     style={{
+          //       fontSize: responsive(12),
+          //       color: "#444444",
+          //       fontWeight: "bold",
+          //     }}
+          //   >
+          //     {item.price}원
+          //   </Text>
+          // </View>
         ))}
       </View>
     </View>
