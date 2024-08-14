@@ -1,8 +1,10 @@
-import useModal from "@/hooks/useModal";
-import responsive from "@/tools/ratio";
 import React from "react";
 import { Pressable } from "react-native";
 import { Path, Svg } from "react-native-svg";
+
+import { useModal } from "@/hooks/useModal";
+
+import responsive from "@/tools/ratio";
 
 function ModalCloseButton() {
   const { setModal } = useModal();

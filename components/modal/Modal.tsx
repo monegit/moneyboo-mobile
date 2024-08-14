@@ -1,8 +1,11 @@
-import responsive from "@/tools/ratio";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
+
+import { useModal } from "@/hooks/useModal";
+
+import responsive from "@/tools/ratio";
+
 import ModalCloseButton from "../button/ModalCloseButton";
-import useModal from "@/hooks/useModal";
 
 function Modal() {
   const { modal, setModal } = useModal();
@@ -31,11 +34,12 @@ function Modal() {
           backgroundColor: "white",
         }}
       >
+        {/* Header */}
         <View
           style={{
             flexDirection: "row",
+            alignItems: "center",
             gap: responsive(10),
-            // backgroundColor: "red",
           }}
         >
           <Text
@@ -50,6 +54,8 @@ function Modal() {
           </Text>
           <ModalCloseButton />
         </View>
+
+        {/* Content */}
         <View>{modal?.content}</View>
       </View>
     </View>

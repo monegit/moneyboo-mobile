@@ -1,7 +1,8 @@
-import { Stack } from "expo-router";
 import React from "react";
 import { Pressable, PressableProps, Text } from "react-native";
+
 import { css } from "@emotion/native";
+
 import responsive from "@/tools/ratio";
 
 interface Props {
@@ -15,7 +16,6 @@ const styles = {
     display: flex;
     /* background-color: #4b4ddc; */
     /* padding: 10px 20px; */
-    border-radius: 10px;
     align-items: center;
     justify-content: center;
   `,
@@ -35,6 +35,7 @@ function Button(props: Props) {
       style={[
         styles.self,
         {
+          borderRadius: responsive(10),
           paddingHorizontal: responsive(20),
           paddingVertical: responsive(10),
           backgroundColor: props.color ?? "#4b4ddc",

@@ -1,9 +1,9 @@
-import { modalState } from "@/recoil/modal";
-import React, { useState } from "react";
-import { View } from "react-native";
+import React from "react";
 import { useRecoilState } from "recoil";
 
-export default function useModal() {
+import { modalState } from "@/recoil/modal";
+
+export function useModal() {
   const [modal, _setModal] = useRecoilState(modalState);
   // const [visible, setVisible] = useState(false);
 

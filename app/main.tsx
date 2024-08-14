@@ -1,18 +1,21 @@
 import React from "react";
-import { Redirect, router, Slot } from "expo-router";
 import { SafeAreaView, Text, View } from "react-native";
+
+import { spentColorSet, incomeColorSet } from "@/styles/chart";
+
+import responsive from "@/tools/ratio";
+
+import { useModal } from "@/hooks/useModal";
+
+import { AddModalModel } from "@/model/AddModalModel";
 
 import Button from "@/components/button/Button";
 import Calendar from "@/components/calendar/Calendar";
 import ChartPie from "@/components/chart/ChartPie";
 import DashedLine from "@/components/line/DashedLine";
-import { spentColorSet, incomeColorSet } from "@/styles/chart";
-import responsive from "@/tools/ratio";
-import { useRecoilValue } from "recoil";
-import { modalState } from "@/recoil/modal";
 import Modal from "@/components/modal/Modal";
 import AddModal from "@/components/modal/AddModal";
-import useModal from "@/hooks/useModal";
+import SelectButton from "@/components/button/SelectButton";
 
 const data = {
   income: [
@@ -145,10 +148,7 @@ function main() {
         <Button
           text="추가"
           onPress={() => {
-            setModal("dd", AddModal());
-            // router.push("login");
-
-            // console.log("dd");
+            setModal(<SelectButton model={AddModalModel} />, AddModal());
           }}
         />
       </View>
