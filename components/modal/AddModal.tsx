@@ -10,6 +10,8 @@ import Text from "../input/Text";
 
 import AnalyticSummary from "../summary/AnalyticSummary";
 
+import DashedLine from "../line/DashedLine";
+
 function AddModal() {
   const style = StyleSheet.create({
     text: {
@@ -72,7 +74,9 @@ function AddModal() {
           <Text text="소비했어요." style={style.text} />
         </View>
       </View>
-      {/* <DashedLine /> */}
+      <View style={{ width: "100%" }}>
+        <DashedLine dash={5} gap={5} dashLength={40} color="#B6B6B6" />
+      </View>
       <View style={{ width: "100%", gap: responsive(10) }}>
         <AnalyticSummary />
         <AnalyticSummary />
