@@ -33,7 +33,7 @@ function Input(props: Props) {
           paddingVertical: responsive(5),
           paddingHorizontal: responsive(10),
 
-          minWidth: responsive(100),
+          minWidth: responsive(85),
         },
       ]}
       placeholderTextColor={"#9D9D9D"}
