@@ -1,5 +1,11 @@
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 
 import { useModal } from "@/hooks/useModal";
 
@@ -25,39 +31,43 @@ function Modal() {
         }}
         onPress={() => setModal()}
       />
-      <View
-        style={{
-          paddingHorizontal: responsive(20),
-          paddingTop: responsive(20),
-          paddingBottom: responsive(20),
-          gap: responsive(25),
-          backgroundColor: "white",
-        }}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        {/* Header */}
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: responsive(10),
+            paddingHorizontal: responsive(20),
+            paddingTop: responsive(20),
+            paddingBottom: responsive(20),
+            gap: responsive(25),
+            backgroundColor: "white",
           }}
         >
-          <Text
+          {/* Header */}
+          <View
             style={{
-              flex: 1,
-              fontSize: responsive(18),
-              fontWeight: "bold",
-              fontFamily: "Inter",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: responsive(10),
             }}
           >
-            {modal?.header}
-          </Text>
-          <ModalCloseButton />
-        </View>
+            <Text
+              style={{
+                flex: 1,
+                fontSize: responsive(18),
+                fontWeight: "bold",
+                fontFamily: "Inter",
+              }}
+            >
+              {modal?.header}
+            </Text>
+            <ModalCloseButton />
+          </View>
 
-        {/* Content */}
-        <View>{modal?.content}</View>
-      </View>
+          {/* Content */}
+          <View>{modal?.content}</View>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }

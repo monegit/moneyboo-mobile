@@ -152,6 +152,7 @@ function main() {
           }}
         />
       </View>
+
       {modal === null ? <></> : <Modal />}
     </View>
   );
