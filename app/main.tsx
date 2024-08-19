@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 
 import { spentColorSet, incomeColorSet } from "@/styles/chart";
@@ -7,15 +7,14 @@ import responsive from "@/tools/ratio";
 
 import { useModal } from "@/hooks/useModal";
 
-import { AddModalModel } from "@/model/AddModalModel";
-
 import Button from "@/components/button/Button";
 import Calendar from "@/components/calendar/Calendar";
 import ChartPie from "@/components/chart/ChartPie";
 import DashedLine from "@/components/line/DashedLine";
 import Modal from "@/components/modal/Modal";
 import AddModal from "@/components/modal/AddModal";
-import SelectButton from "@/components/button/SelectButton";
+import PreAddModal from "@/components/modal/PreAddModal";
+import TabView from "@/components/view/TabView";
 
 const data = {
   income: [
@@ -67,6 +66,10 @@ const data = {
 
 function main() {
   const { modal, setModal } = useModal();
+
+  useEffect(() => {
+    console.log(modal?.header);
+  }, [modal?.header]);
 
   return (
     <View style={{ height: "100%" }}>
@@ -148,7 +151,23 @@ function main() {
         <Button
           text="추가"
           onPress={() => {
-            setModal(<SelectButton model={AddModalModel} />, AddModal());
+            setModal({
+              body: (
+                <TabView
+                  style={{}}
+                  model={[
+                    {
+                      text: "추가",
+                      body: <AddModal />,
+                    },
+                    {
+                      text: "미리 추가",
+                      body: <PreAddModal />,
+                    },
+                  ]}
+                />
+              ),
+            });
           }}
         />
       </View>

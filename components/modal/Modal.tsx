@@ -51,24 +51,44 @@ function Modal() {
               gap: responsive(10),
             }}
           >
-            <Text
-              style={{
-                flex: 1,
-                fontSize: responsive(18),
-                fontWeight: "bold",
-                fontFamily: "Inter",
-              }}
-            >
-              {modal?.header}
-            </Text>
-            <ModalCloseButton />
+            {modal?.header ? (
+              <Header content={modal?.header} />
+            ) : (
+              // 만약 header가 없는 상태면 body로 대체
+              <View style={{ width: "100%" }}>{modal?.body}</View>
+            )}
+
+            <View style={{ position: "absolute", top: 0, right: 0 }}>
+              <ModalCloseButton />
+            </View>
           </View>
 
           {/* Content */}
-          <View>{modal?.content}</View>
+          {modal?.header === undefined ? <></> : modal?.body}
         </View>
       </KeyboardAvoidingView>
     </View>
+  );
+}
+
+function Header(props: { content: string | React.JSX.Element }) {
+  return (
+    <>
+      {typeof props.content === "string" ? (
+        <Text
+          style={{
+            flex: 1,
+            fontSize: responsive(18),
+            fontWeight: "bold",
+            fontFamily: "Inter",
+          }}
+        >
+          {props.content}
+        </Text>
+      ) : (
+        <>{props.content}</>
+      )}
+    </>
   );
 }
 

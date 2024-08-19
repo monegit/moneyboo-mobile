@@ -1,5 +1,5 @@
 type ModalInfo = {
   header?: React.JSX.Element | string;
-  content?: React.JSX.Element;
+  body?: React.JSX.Element;
   info: { date: string };
 };
