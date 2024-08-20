@@ -15,7 +15,7 @@ import Modal from "@/components/modal/Modal";
 import AddModal from "@/components/modal/AddModal";
 import PreAddModal from "@/components/modal/PreAddModal";
 import TabView from "@/components/view/TabView";
-import SafeAreaView from "@/components/view/SafeAreaView";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const data = {
   income: [

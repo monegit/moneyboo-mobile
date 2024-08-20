@@ -1,20 +1,13 @@
-import React, { useState } from "react";
-// import { SafeAreaView } from "react-native";
+import React, { useEffect, useState } from "react";
 import { Redirect, useFocusEffect } from "expo-router";
-import SafeAreaView from "@/components/view/SafeAreaView";
-// import { ExpoRouter } from "expo-router/types/expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 function index() {
-  // const [screen, setScreen] = useState<ExpoRouter.Href>();
-  // const login = false;
-
   useFocusEffect(() => {});
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       {/* <Redirect href={"login"} /> */}
-      {}
       <Redirect href={"/main"} />
-      {/* <Main /> */}
     </SafeAreaView>
   );
 }
