@@ -31,9 +31,7 @@ function Modal() {
         }}
         onPress={() => setModal()}
       />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+      <KeyboardAvoidingView behavior={"padding"}>
         <View
           style={{
             paddingHorizontal: responsive(20),

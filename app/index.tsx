@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native";
+// import { SafeAreaView } from "react-native";
 import { Redirect, useFocusEffect } from "expo-router";
-import { ExpoRouter } from "expo-router/types/expo-router";
+import SafeAreaView from "@/components/view/SafeAreaView";
+// import { ExpoRouter } from "expo-router/types/expo-router";
 
 function index() {
   // const [screen, setScreen] = useState<ExpoRouter.Href>();
@@ -12,7 +13,7 @@ function index() {
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       {/* <Redirect href={"login"} /> */}
       {}
-      <Redirect href={"main"} />
+      <Redirect href={"/main"} />
       {/* <Main /> */}
     </SafeAreaView>
   );

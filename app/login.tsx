@@ -39,7 +39,7 @@ function login() {
             style={"google"}
             width={300}
             onPress={() => {
-              router.navigate("main");
+              router.navigate("/main");
             }}
           />
           {/* <SocialButton

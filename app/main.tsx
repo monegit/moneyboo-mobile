@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { spentColorSet, incomeColorSet } from "@/styles/chart";
 
@@ -15,6 +15,7 @@ import Modal from "@/components/modal/Modal";
 import AddModal from "@/components/modal/AddModal";
 import PreAddModal from "@/components/modal/PreAddModal";
 import TabView from "@/components/view/TabView";
+import SafeAreaView from "@/components/view/SafeAreaView";
 
 const data = {
   income: [
