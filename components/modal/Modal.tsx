@@ -26,12 +26,17 @@ function Modal() {
     >
       <Pressable
         style={{
-          flex: 1,
+          position: "absolute",
+          height: "100%",
+          width: "100%",
           backgroundColor: "rgba(51,51,51,0.25)",
         }}
         onPress={() => setModal()}
       />
-      <KeyboardAvoidingView behavior={"padding"}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1, justifyContent: "flex-end" }}
+      >
         <View
           style={{
             paddingHorizontal: responsive(20),
