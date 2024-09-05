@@ -1,16 +1,16 @@
-type CalendarData = {
+export type CalendarData = {
   name: string;
   price: number;
 };
 
-type CalendarDayType =
+export type CalendarDayType =
   | "spent"
   | "income"
   | "schedule/spent"
   | "schedule/income"
   | undefined;
 
-type CalendarDay = {
+export type CalendarDay = {
   date: string;
   income?: CalendarData[];
   spent?: CalendarData[];

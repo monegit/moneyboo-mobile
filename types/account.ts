@@ -1,3 +1,3 @@
-type AccountType = "spent" | "income";
+export type AccountType = "spent" | "income";
 
 // type Summary = {};
