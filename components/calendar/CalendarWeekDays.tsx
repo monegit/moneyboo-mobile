@@ -1,6 +1,7 @@
-import responsive from "@/tools/ratio";
 import React from "react";
 import { Text, View } from "react-native";
+
+import responsive from "@/tools/ratio";
 
 interface Props {
   text: string;

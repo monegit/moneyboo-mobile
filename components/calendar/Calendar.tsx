@@ -4,6 +4,7 @@ import moment from "moment";
 
 import { CalendarTool } from "@/tools/calendar";
 import responsive from "@/tools/ratio";
+import { CalendarDay, CalendarDayType } from "@/types/calendar";
 
 import CalendarDays from "./CalendarDays";
 import CalendarWeekDays from "./CalendarWeekDays";

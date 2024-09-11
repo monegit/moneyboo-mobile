@@ -1,3 +1,4 @@
+import { ModalInfo } from "@/types/modal";
 import { atom } from "recoil";
 
 export const modalState = atom<ModalInfo | null>({

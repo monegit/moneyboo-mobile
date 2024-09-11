@@ -29,6 +29,7 @@ function AddModal() {
       style={{
         gap: responsive(25),
         alignItems: "center",
+        backgroundColor: "white",
       }}
     >
       <View style={{ gap: responsive(10) }}>

@@ -2,7 +2,7 @@ import React from "react";
 import * as ReactNative from "react-native";
 
 interface Props {
-  text: string;
+  text: string | number;
   style?: ReactNative.TextStyle;
 }
 

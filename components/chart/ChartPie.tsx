@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import { Path, Svg } from "react-native-svg";
 
 import responsive from "@/tools/ratio";
+import { AccountType } from "@/types/account";
 
 import Summary from "../summary/Summary";
 import SolidLIne from "../line/SolidLIne";

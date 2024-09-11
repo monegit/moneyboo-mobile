@@ -155,7 +155,7 @@ function main() {
             setModal({
               body: (
                 <TabView
-                  style={{}}
+                  // style={{tab:{}}}
                   model={[
                     {
                       text: "추가",
@@ -173,7 +173,7 @@ function main() {
         />
       </View>
 
-      {modal === null ? <></> : <Modal />}
+      {modal === null ? <></> : <Modal hasCloseButton>{modal.body}</Modal>}
     </View>
   );
 }

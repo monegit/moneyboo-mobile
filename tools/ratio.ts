@@ -1,4 +1,4 @@
-import { DimensionValue, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 
 /**
  * 디자인 기준 화면 사이즈 (가로 기준)

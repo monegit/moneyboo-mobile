@@ -1,8 +1,11 @@
-import responsive from "@/tools/ratio";
-import { ReactNativeStyle, css } from "@emotion/native";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Pressable, Text } from "react-native";
+
+import { ReactNativeStyle, css } from "@emotion/native";
+
+import responsive from "@/tools/ratio";
+import { CalendarDayType } from "@/types/calendar";
 
 interface Props {
   /**

@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import responsive from "@/tools/ratio";
+import { AccountType } from "@/types/account";
 
 interface Props {
   text: string;

@@ -1,51 +1,54 @@
 import React from "react";
-import { Pressable, PressableProps, Text } from "react-native";
-
-import { css } from "@emotion/native";
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  Text,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
 
 import responsive from "@/tools/ratio";
 
 interface Props {
   text: string;
-  color?: string;
   onPress?: PressableProps["onPress"];
+  style?: {
+    button?: ViewStyle;
+    text?: TextStyle;
+  };
 }
 
-const styles = {
-  self: css`
-    display: flex;
-    /* background-color: #4b4ddc; */
-    /* padding: 10px 20px; */
-    align-items: center;
-    justify-content: center;
-  `,
-  font: css`
-    color: white;
-    font-weight: bold;
-    /* font-size: 18px; */
-    /* font-size: 1em; */
-    width: fit-content;
-    font-family: "Inter";
-  `,
-};
-
 function Button(props: Props) {
+  const styles = {
+    view: StyleSheet.create({
+      component: {
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: props.style?.button?.backgroundColor ?? "#4B4DDC",
+
+        borderRadius: props.style?.button?.borderRadius ?? responsive(10),
+        paddingHorizontal:
+          props.style?.button?.paddingHorizontal ?? responsive(20),
+        paddingVertical: props.style?.button?.paddingVertical ?? responsive(10),
+      },
+    }),
+
+    font: StyleSheet.create({
+      text: {
+        color: props.style?.text?.color ?? "white",
+        fontWeight: props.style?.text?.fontWeight ?? "bold",
+        fontSize: props.style?.text?.fontSize ?? responsive(18),
+      },
+    }),
+  };
+
   return (
     <Pressable
-      style={[
-        styles.self,
-        {
-          borderRadius: responsive(10),
-          paddingHorizontal: responsive(20),
-          paddingVertical: responsive(10),
-          backgroundColor: props.color ?? "#4b4ddc",
-        },
-      ]}
+      style={[props.style?.button, styles.view.component]}
       onPress={props.onPress}
     >
-      <Text style={[styles.font, { fontSize: responsive(18) }]}>
-        {props.text}
-      </Text>
+      <Text style={[props.style?.text, styles.font.text]}>{props.text}</Text>
     </Pressable>
   );
 }
