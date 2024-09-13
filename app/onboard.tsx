@@ -98,6 +98,7 @@ function onboard() {
                     alignItems: "center",
 
                     borderRadius: responsive(12),
+                    paddingVertical: 0,
                   },
                   text: {
                     fontSize: responsive(14),
@@ -132,6 +133,8 @@ function onboard() {
                     alignItems: "center",
 
                     borderRadius: responsive(12),
+
+                    paddingVertical: 0,
                   },
                   text: {
                     fontSize: responsive(14),
