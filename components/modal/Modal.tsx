@@ -130,17 +130,17 @@ const Modal: FC<Props> = ({
           }}
         >
           {children}
-        </Animated.View>
 
-        <View
-          style={{
-            position: "absolute",
-            top: responsive(15),
-            right: responsive(15),
-          }}
-        >
-          {hasCloseButton ?? <></> ? <ModalCloseButton /> : <></>}
-        </View>
+          <View
+            style={{
+              position: "absolute",
+              top: responsive(15),
+              right: responsive(15),
+            }}
+          >
+            {hasCloseButton ?? <></> ? <ModalCloseButton /> : <></>}
+          </View>
+        </Animated.View>
       </KeyboardAvoidingView>
     </View>
 
