@@ -107,7 +107,7 @@ function AccountRegistryModal() {
   }, []);
 
   return (
-    <Pressable style={styles.view.component}>
+    <View style={styles.view.component}>
       <Pressable
         style={styles.view.chapter}
         onPress={() => {
@@ -228,7 +228,7 @@ function AccountRegistryModal() {
           />
         </HiddenContentView>
       </Pressable>
-    </Pressable>
+    </View>
   );
 }
 
