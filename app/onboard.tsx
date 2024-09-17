@@ -2,16 +2,18 @@ import React, { ReactElement, ReactNode, useState } from "react";
 import { router } from "expo-router";
 import { SafeAreaView, Text, View } from "react-native";
 
-import SocialButton from "@/components/button/SocialButton";
 import responsive from "@/tools/ratio";
+
+import { useModal } from "@/hooks/useModal";
+
+import SocialButton from "@/components/button/SocialButton";
 import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
-import { useModal } from "@/hooks/useModal";
 import AccountRegistryModal from "@/components/modal/AccountRegistryModal";
+import LoginModal from "@/components/modal/LoginModal";
 
 function onboard() {
   const { modal, setModal } = useModal();
-  // const [modal, setModal] = useState<ReactElement | null>(null);
 
   return (
     <SafeAreaView>
@@ -40,7 +42,6 @@ function onboard() {
               width={300}
               onPress={() => {
                 router.push("/main");
-                // router.navigate("/main");
               }}
             />
             <SocialButton
@@ -108,7 +109,6 @@ function onboard() {
                   },
                 }}
                 onPress={() => {
-                  // setModal(<AccountRegistryModal />);
                   setModal({
                     body: <AccountRegistryModal />,
                     style: {
@@ -117,7 +117,6 @@ function onboard() {
                       paddingVertical: 0,
                     },
                   });
-                  // router.push("/account/login");
                 }}
               />
               <Button
@@ -142,6 +141,16 @@ function onboard() {
 
                     color: "white",
                   },
+                }}
+                onPress={() => {
+                  setModal({
+                    body: <LoginModal />,
+                    style: {
+                      borderRadius: responsive(20),
+                      paddingHorizontal: 0,
+                      paddingVertical: 0,
+                    },
+                  });
                 }}
               />
             </View>

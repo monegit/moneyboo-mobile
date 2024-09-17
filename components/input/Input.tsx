@@ -27,8 +27,11 @@ function Input(props: Props) {
 
       borderRadius: props.style?.borderRadius ?? responsive(10),
 
-      paddingVertical: props.style?.paddingVertical ?? responsive(5),
-      paddingHorizontal: props.style?.paddingHorizontal ?? responsive(10),
+      paddingVertical:
+        (props.style?.paddingVertical || props.style?.padding) ?? responsive(5),
+      paddingHorizontal:
+        (props.style?.paddingHorizontal || props.style?.padding) ??
+        responsive(10),
 
       minWidth: props.style?.minWidth ?? responsive(85),
     },
