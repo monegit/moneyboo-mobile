@@ -11,9 +11,19 @@ import Button from "@/components/button/Button";
 import Modal from "@/components/modal/Modal";
 import AccountRegistryModal from "@/components/modal/AccountRegistryModal";
 import LoginModal from "@/components/modal/LoginModal";
+import { confirmCode, sendCode } from "@/api/account";
 
 function onboard() {
   const { modal, setModal } = useModal();
+
+  // confirmCode({
+  //   code: "469126",
+  //   email: "pjw970220@gmail.com",
+  // });
+
+  // sendCode({
+  //   email: "pjw970220@gmail.com",
+  // });
 
   return (
     <SafeAreaView>
