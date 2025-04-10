@@ -8,32 +8,43 @@ interface Props {
   title: string;
   subtitle?: string;
   isEnable?: boolean;
+  isSelect?: boolean;
 }
 
 function AccountRegistryChapterTitle(props: Props) {
   const animatedSelectChapterValue = useRef(new Animated.Value(0)).current;
 
   const primaryColorValue = animatedSelectChapterValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["rgba(75, 77, 220, 0.4)", "rgba(75, 77, 220, 1)"],
-  });
-  const subtitleHeightValue = animatedSelectChapterValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, responsive(15)],
+    inputRange: [0, 1, 2],
+    outputRange: ["#b0b0b0", "rgba(75, 77, 220, 0.4)", "rgba(75, 77, 220, 1)"],
   });
 
-  const selectedChapterAnimation = () => {
+  const subtitleHeightValue = animatedSelectChapterValue.interpolate({
+    inputRange: [0, 1, 2],
+    outputRange: [0, 0, responsive(15)],
+  });
+
+  const disabledChapterAnimation = () => {
+    Animated.timing(animatedSelectChapterValue, {
+      toValue: 0,
+      duration: 300,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: false,
+    });
+  };
+
+  const unselectedChapterAnimation = () => {
     Animated.timing(animatedSelectChapterValue, {
       toValue: 1,
       duration: 300,
       easing: Easing.out(Easing.cubic),
       useNativeDriver: false,
-    }).start(() => {});
+    }).start();
   };
 
-  const unselectedChapterAnimation = () => {
+  const selectedChapterAnimation = () => {
     Animated.timing(animatedSelectChapterValue, {
-      toValue: 0,
+      toValue: 2,
       duration: 300,
       easing: Easing.out(Easing.cubic),
       useNativeDriver: false,
@@ -59,7 +70,6 @@ function AccountRegistryChapterTitle(props: Props) {
 
         borderRadius: 99,
         borderWidth: responsive(4),
-        borderColor: props.isEnable ? "#4B4DDC" : "rgba(75, 77, 220, 0.4)",
       },
 
       title: {
@@ -69,13 +79,11 @@ function AccountRegistryChapterTitle(props: Props) {
 
     text: StyleSheet.create({
       number: {
-        color: props.isEnable ? "#4B4DDC" : "rgba(75, 77, 220, 0.4)",
         fontSize: responsive(18),
         fontWeight: "bold",
       },
 
       title: {
-        color: props.isEnable ? "#4B4DDC" : "rgba(75, 77, 220, 0.4)",
         fontSize: responsive(16),
         fontWeight: "bold",
       },
@@ -88,8 +96,18 @@ function AccountRegistryChapterTitle(props: Props) {
   };
 
   useEffect(() => {
-    props.isEnable ? selectedChapterAnimation() : unselectedChapterAnimation();
-  }, [props.isEnable]);
+    if (!props.isEnable) {
+      disabledChapterAnimation();
+    } else {
+      if (props.isSelect) {
+        selectedChapterAnimation();
+      } else {
+        unselectedChapterAnimation();
+      }
+    }
+  }, [props.isSelect, props.isEnable]);
+
+  useEffect(() => {});
 
   return (
     <View style={styles.view.component}>

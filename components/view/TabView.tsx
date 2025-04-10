@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, View, Text, ViewStyle } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  Text,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 
 import responsive from "@/tools/ratio";
 import { TabModel } from "@/types/tabModel";
@@ -21,24 +28,32 @@ function TabView(props: Props) {
           props.style?.component?.paddingHorizontal ?? responsive(20),
         paddingVertical:
           props.style?.component?.paddingVertical ?? responsive(20),
-      },
+      } as ViewStyle,
 
-      tab: { flexDirection: "row", gap: responsive(10) },
+      tab: {
+        flexDirection: "row",
+        gap: responsive(10),
+      } as ViewStyle,
       tabItem: {
-        padding: responsive(5),
+        paddingHorizontal: responsive(5),
         borderBottomWidth: responsive(2),
-      },
-      defaultTab: { borderBottomColor: "transparent" },
-      selectedTab: {},
+      } as ViewStyle,
+      defaultTab: { borderBottomColor: "transparent" } as ViewStyle,
+      selectedTab: {} as ViewStyle,
     }),
 
     text: StyleSheet.create({
       tabTitle: {
-        fontFamily: "Inter",
         fontSize: responsive(18),
         fontWeight: "bold",
-        color: "#444444",
-      },
+      } as TextStyle,
+
+      defaultTabTitle: {
+        color: "#b6b6b6",
+      } as TextStyle,
+      selectedTabTitle: {
+        color: "#333333",
+      } as TextStyle,
     }),
   };
 
@@ -58,7 +73,16 @@ function TabView(props: Props) {
               setSelectedIndex(index);
             }}
           >
-            <Text style={styles.text.tabTitle}>{item.text}</Text>
+            <Text
+              style={[
+                styles.text.tabTitle,
+                selectedIndex === index
+                  ? styles.text.selectedTabTitle
+                  : styles.text.defaultTabTitle,
+              ]}
+            >
+              {item.text}
+            </Text>
           </Pressable>
         ))}
       </View>

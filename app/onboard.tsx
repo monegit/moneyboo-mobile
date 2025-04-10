@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from "react";
+import React from "react";
 import { router } from "expo-router";
 import { SafeAreaView, Text, View } from "react-native";
 
@@ -14,6 +14,15 @@ import LoginModal from "@/components/modal/LoginModal";
 
 function onboard() {
   const { modal, setModal } = useModal();
+
+  // confirmCode({
+  //   code: "469126",
+  //   email: "pjw970220@gmail.com",
+  // });
+
+  // sendCode({
+  //   email: "pjw970220@gmail.com",
+  // });
 
   return (
     <SafeAreaView>

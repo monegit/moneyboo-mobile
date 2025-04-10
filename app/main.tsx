@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Text, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
+import * as SQLite from "expo-sqlite";
 
 import { spentColorSet, incomeColorSet } from "@/styles/chart";
 
@@ -7,15 +8,11 @@ import responsive from "@/tools/ratio";
 
 import { useModal } from "@/hooks/useModal";
 
-import Button from "@/components/button/Button";
 import Calendar from "@/components/calendar/Calendar";
 import ChartPie from "@/components/chart/ChartPie";
 import DashedLine from "@/components/line/DashedLine";
 import Modal from "@/components/modal/Modal";
-import AddModal from "@/components/modal/AddModal";
-import PreAddModal from "@/components/modal/PreAddModal";
-import TabView from "@/components/view/TabView";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { init } from "@/db/db";
 
 const data = {
   income: [
@@ -70,110 +67,112 @@ function main() {
 
   useEffect(() => {
     console.log(modal?.header);
-  }, [modal?.header]);
+  }, [modal]);
 
   return (
-    <View style={{ height: "100%" }}>
-      <SafeAreaView style={{}}>
-        <View
-          style={{
-            gap: responsive(20),
-            paddingHorizontal: responsive(20),
-            paddingVertical: responsive(20),
-          }}
-        >
+    <View style={{ height: "100%", backgroundColor: "white" }}>
+      <SQLite.SQLiteProvider databaseName="moneyboo.db" onInit={init}>
+        <SafeAreaView style={{}}>
           <View
             style={{
-              width: responsive(322.8),
-              height: responsive(384),
-              alignSelf: "center",
-            }}
-          >
-            <Calendar dataSet={data} />
-          </View>
-          <DashedLine gap={4} dash={4} color={"#bbbbbb"} dashLength={45} />
-          <View
-            style={{
-              height: responsive(261),
+              gap: responsive(20),
               paddingHorizontal: responsive(20),
+              paddingVertical: responsive(20),
             }}
           >
-            <View style={{ flex: 1, gap: responsive(20) }}>
-              <Text
-                style={{
-                  fontSize: responsive(16),
-                  fontFamily: "Inter",
-                  fontWeight: "bold",
-                }}
-              >
-                6월 종합 소비
-              </Text>
+            <View
+              style={{
+                width: responsive(322.8),
+                height: responsive(384),
+                alignSelf: "center",
+              }}
+            >
+              <Calendar dataSet={data} />
+            </View>
+            <DashedLine gap={4} dash={4} color={"#bbbbbb"} dashLength={45} />
+            <View
+              style={{
+                height: responsive(261),
+                paddingHorizontal: responsive(20),
+              }}
+            >
+              <View style={{ flex: 1, gap: responsive(20) }}>
+                <Text
+                  style={{
+                    fontSize: responsive(16),
+                    fontFamily: "Inter",
+                    fontWeight: "bold",
+                  }}
+                >
+                  6월 종합 소비
+                </Text>
+                <ChartPie
+                  type="spent"
+                  size={responsive(80)}
+                  colorSet={spentColorSet}
+                  dataSet={[
+                    { price: 100000, name: "편의점" },
+                    { price: 100000, name: "공과금" },
+                    { price: 130000, name: "애플스토어" },
+                    { price: 250000, name: "넥슨 캐시" },
+                    { price: 750000, name: "벽제갈비" },
+                  ]}
+                />
+              </View>
               <ChartPie
-                type="spent"
+                type="income"
                 size={responsive(80)}
-                colorSet={spentColorSet}
+                colorSet={incomeColorSet}
                 dataSet={[
-                  { price: 100000, name: "편의점" },
-                  { price: 100000, name: "공과금" },
-                  { price: 130000, name: "애플스토어" },
+                  { price: 200000, name: "편의점" },
+                  { price: 50000, name: "공과금" },
+                  { price: 1300000, name: "애플스토어" },
                   { price: 250000, name: "넥슨 캐시" },
                   { price: 750000, name: "벽제갈비" },
                 ]}
               />
             </View>
-            <ChartPie
-              type="income"
-              size={responsive(80)}
-              colorSet={incomeColorSet}
-              dataSet={[
-                { price: 200000, name: "편의점" },
-                { price: 50000, name: "공과금" },
-                { price: 1300000, name: "애플스토어" },
-                { price: 250000, name: "넥슨 캐시" },
-                { price: 750000, name: "벽제갈비" },
-              ]}
-            />
           </View>
-        </View>
-      </SafeAreaView>
-      {/* </ScrollView> */}
+        </SafeAreaView>
+        {/* </ScrollView> */}
 
-      <View
-        style={{
-          position: "absolute",
-          bottom: 0,
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
 
-          width: "100%",
+            width: "100%",
 
-          paddingHorizontal: responsive(20),
-          marginBottom: responsive(20),
-        }}
-      >
-        <Button
-          text="추가"
-          onPress={() => {
-            setModal({
-              body: (
-                <TabView
-                  // style={{tab:{}}}
-                  model={[
-                    {
-                      text: "추가",
-                      body: <AddModal />,
-                    },
-                    {
-                      text: "미리 추가",
-                      body: <PreAddModal />,
-                    },
-                  ]}
-                />
-              ),
-            });
+            paddingHorizontal: responsive(20),
+            marginBottom: responsive(20),
           }}
-        />
-      </View>
+        >
+          {/* <Button
+            text="추가"
+            onPress={() => {
+              setModal({
+                body: (
+                  <TabView
+                    // style={{tab:{}}}
+                    model={[
+                      {
+                        text: "추가",
+                        body: <AddModal />,
+                      },
+                      {
+                        text: "미리 추가",
+                        body: <PreAddModal />,
+                      },
+                    ]}
+                  />
+                ),
+              });
+            }}
+          /> */}
+        </View>
 
-      {modal === null ? <></> : <Modal hasCloseButton>{modal.body}</Modal>}
+        {modal === null ? <></> : <Modal>{modal.body}</Modal>}
+      </SQLite.SQLiteProvider>
     </View>
   );
 }

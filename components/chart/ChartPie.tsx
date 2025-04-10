@@ -3,17 +3,16 @@ import { Text, View } from "react-native";
 import { Path, Svg } from "react-native-svg";
 
 import responsive from "@/tools/ratio";
-import { AccountType } from "@/types/account";
 
 import Summary from "../summary/Summary";
-import SolidLIne from "../line/SolidLIne";
 import SummaryDetail from "../summary/SummaryDetail";
+import { LedgerType } from "@/types/ledger";
 
 interface Props {
   size: number;
   dataSet: { price: number; name: string }[];
   colorSet: string[];
-  type: AccountType;
+  type: LedgerType;
 }
 
 function ChartPie(props: Props) {

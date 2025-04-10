@@ -10,8 +10,10 @@ import CalendarDays from "./CalendarDays";
 import CalendarWeekDays from "./CalendarWeekDays";
 import TextButton from "../button/TextButton";
 import Summary from "../summary/Summary";
+import { useRecoilState } from "recoil";
+import { calendarState } from "@/recoil/calendar";
 
-type CalendarDate = { year: number; month: number };
+// type CalendarDate = { year: number; month: number };
 
 type CalendarData = { date: string; price: number; name: string };
 type CalendarDataSet = { income: CalendarData[]; spent: CalendarData[] };
@@ -47,14 +49,13 @@ const week = [
   { day: "금", color: "#333333" },
   { day: "토", color: "#3655F5" },
 ];
-const getToday = moment().format("YYYY-MM-DD");
 
 function Calendar(props: Props) {
-  const [date, setDate] = useState<CalendarDate>({ year: 2024, month: 8 });
+  const [date, setDate] = useRecoilState(calendarState);
   const [calendar, setCalendar] = useState<CalendarDay[]>();
 
   const calendarRef = useRef<CalendarDay[]>(
-    new CalendarTool(date.year, date.month, 42).getCalendarTableData()
+    new CalendarTool(date?.year, date?.month, 42).getCalendarTableData()
   );
 
   useEffect(() => {
@@ -151,7 +152,7 @@ function Calendar(props: Props) {
                   date.month - 1 === moment(item.item.date).month()
                 }
                 type={item.item.type}
-                isToday={item.item.date === getToday}
+                isToday={item.item.date === date.today}
               />
             )}
             numColumns={7}

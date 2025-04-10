@@ -1,3 +1,4 @@
+import { CalendarDay } from "@/types/calendar";
 import moment, { Moment } from "moment";
 
 export class CalendarTool {
