@@ -1,18 +1,19 @@
-import React, { FC, ReactNode, useEffect, useRef, useState } from "react";
+import React, { FC, ReactNode, useEffect, useRef } from "react";
 import {
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
   Text,
   View,
   Dimensions,
   ViewStyle,
   StyleSheet,
-  Animated,
-  Easing,
-  TouchableWithoutFeedback,
-  Keyboard,
 } from "react-native";
+import Animated, {
+  Easing,
+  useAnimatedKeyboard,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 import { useModal } from "@/hooks/useModal";
 
@@ -34,13 +35,23 @@ const Modal: FC<Props> = ({
   children,
 }) => {
   const { modal, setModal } = useModal();
-  const animatedBackgroundValue = useRef({
-    opacity: new Animated.Value(0),
-  }).current;
-  const animatedContentValue = useRef({
-    opacity: new Animated.Value(0),
-    scale: new Animated.Value(0.88),
-  }).current;
+  // TODO: 내장 animated에서 reanimated로 변경하기
+  const animatedBackgroundOpacity = useSharedValue(0);
+
+  const animatedContentOpacity = useSharedValue(0);
+  const animatedContentScale = useSharedValue(0.88);
+  // const animatedContentKeyboardHeightTranslate = useSharedValue(0);
+
+  const keyboard = useAnimatedKeyboard();
+  const animatedModalStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateY: -keyboard.height.value },
+        { scale: animatedContentScale.value },
+      ],
+      opacity: animatedContentOpacity.value,
+    };
+  });
 
   const { height, width } = Dimensions.get("window");
 
@@ -62,43 +73,52 @@ const Modal: FC<Props> = ({
         backgroundColor: "rgba(51,51,51,0.25)",
       },
       content: {
-        bottom: responsive(30),
+        bottom: responsive(0),
         position: "absolute",
         alignSelf: "center",
         overflow: "hidden",
 
         borderRadius: responsive(20),
 
-        width: width - responsive(20),
+        width: width,
       },
     }),
   };
 
   const animate = {
     backgroundFadeIn: () => {
-      Animated.timing(animatedBackgroundValue.opacity, {
-        toValue: 1,
+      animatedBackgroundOpacity.value = withTiming(1, {
         duration: 300,
         easing: Easing.out(Easing.cubic),
-        useNativeDriver: false,
-      }).start();
+      });
     },
 
     contentFadeIn: () => {
-      Animated.timing(animatedContentValue.opacity, {
-        toValue: 1,
+      animatedContentOpacity.value = withTiming(1, {
         duration: 300,
         easing: Easing.out(Easing.cubic),
-        useNativeDriver: false,
-      }).start();
-
-      Animated.timing(animatedContentValue.scale, {
-        toValue: 1,
+      });
+      animatedContentScale.value = withTiming(1, {
         duration: 200,
         easing: Easing.out(Easing.cubic),
-        useNativeDriver: false,
-      }).start();
+      });
     },
+
+    // contentFadeIn: () => {
+    //   Animated.timing(animatedContentValue.opacity, {
+    //     toValue: 1,
+    //     duration: 300,
+    //     easing: Easing.out(Easing.cubic),
+    //     useNativeDriver: false,
+    //   }).start();
+
+    //   Animated.timing(animatedContentValue.scale, {
+    //     toValue: 1,
+    //     duration: 200,
+    //     easing: Easing.out(Easing.cubic),
+    //     useNativeDriver: false,
+    //   }).start();
+    // },
   };
 
   useEffect(() => {
@@ -112,36 +132,46 @@ const Modal: FC<Props> = ({
       <Animated.View
         style={[
           styles.view.backgroundAnimatedView,
-          { opacity: animatedBackgroundValue.opacity },
+          { opacity: animatedBackgroundOpacity },
         ]}
       >
         <Pressable style={styles.view.background} onPress={() => setModal()} />
       </Animated.View>
 
-      <KeyboardAvoidingView
+      {/* <KeyboardAvoidingView
         style={styles.view.content}
         behavior="padding"
         // behavior={Platform.OS === "ios" ? "padding" : "padding"}
+      > */}
+      <Animated.View
+        style={[
+          styles.view.content,
+          // animatedKeyboardStyle,
+          animatedModalStyle,
+          // {
+          //   opacity: animatedContentOpacity,
+          //   transform: [
+          //     { scale: animatedContentScale },
+          //     { translateY: -keyboard.height.value },
+          //   ],
+          //   position: "absolute",
+          //   bottom: 0,
+          // },
+        ]}
       >
-        <Animated.View
+        {children}
+
+        <View
           style={{
-            opacity: animatedContentValue.opacity,
-            transform: [{ scale: animatedContentValue.scale }],
+            position: "absolute",
+            top: responsive(15),
+            right: responsive(15),
           }}
         >
-          {children}
-
-          <View
-            style={{
-              position: "absolute",
-              top: responsive(15),
-              right: responsive(15),
-            }}
-          >
-            {hasCloseButton ?? <></> ? <ModalCloseButton /> : <></>}
-          </View>
-        </Animated.View>
-      </KeyboardAvoidingView>
+          {hasCloseButton ?? <></> ? <ModalCloseButton /> : <></>}
+        </View>
+      </Animated.View>
+      {/* </KeyboardAvoidingView> */}
     </View>
 
     //   <View

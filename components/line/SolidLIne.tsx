@@ -6,7 +6,7 @@ interface Props {
   color?: string;
 }
 
-function SolidLIne(props: Props) {
+function SolidLine(props: Props) {
   const Line = () => (
     <View
       style={{
@@ -22,6 +22,7 @@ function SolidLIne(props: Props) {
   return (
     <View
       style={{
+        flex: 1,
         flexDirection: "row",
         alignSelf: "center",
       }}
@@ -31,4 +32,4 @@ function SolidLIne(props: Props) {
   );
 }
 
-export default SolidLIne;
+export default SolidLine;

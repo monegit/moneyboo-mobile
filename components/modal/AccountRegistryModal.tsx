@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  View,
-  Text,
-  AppState,
-  AppStateStatus,
-} from "react-native";
+import { Pressable, StyleSheet, View, Text, AppState } from "react-native";
 import HiddenContentView from "../view/HiddenContentView";
 import AccountRegistryChapterTitle from "../input/AccountRegistryChapterTitle";
 import responsive from "@/tools/ratio";
@@ -16,6 +9,7 @@ import CodeInput from "../input/CodeInput";
 
 function AccountRegistryModal() {
   const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
+  const [allowChapterLength, setAllowChapterLength] = useState(1);
   const appState = useRef(AppState.currentState);
 
   const styles = {
@@ -83,35 +77,14 @@ function AccountRegistryModal() {
     }),
   };
 
-  useEffect(() => {
-    // background 상태에서 앱으로 돌아올때 마다 이벤트 체크
-    const handleAppStateChange = (nextAppState: AppStateStatus) => {
-      if (
-        appState.current.match("/inactive|background/") &&
-        nextAppState === "active"
-      ) {
-        console.log("dd");
-      }
-
-      appState.current = nextAppState;
-    };
-
-    const appStateEventSubscription = AppState.addEventListener(
-      "change",
-      handleAppStateChange
-    );
-
-    return () => {
-      appStateEventSubscription.remove();
-    };
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.view.component}>
       <Pressable
         style={styles.view.chapter}
         onPress={() => {
-          setSelectedChapterIndex(0);
+          if (allowChapterLength >= 1) setSelectedChapterIndex(0);
         }}
       >
         {/* Email Input Chapter */}
@@ -119,7 +92,8 @@ function AccountRegistryModal() {
           number={1}
           title="이메일"
           subtitle="계정을 잃어버린 경우 찾기위한 수단으로 사용됩니다"
-          isEnable={selectedChapterIndex === 0}
+          isSelect={selectedChapterIndex === 0}
+          isEnable={allowChapterLength >= 1}
         />
         <HiddenContentView
           isShow={selectedChapterIndex === 0}
@@ -140,6 +114,7 @@ function AccountRegistryModal() {
               button: styles.component.button,
               text: styles.component.buttonText,
             }}
+            onPress={() => {}}
           />
         </HiddenContentView>
       </Pressable>
@@ -148,14 +123,15 @@ function AccountRegistryModal() {
       <Pressable
         style={styles.view.chapter}
         onPress={() => {
-          setSelectedChapterIndex(1);
+          if (allowChapterLength >= 2) setSelectedChapterIndex(1);
         }}
       >
         <AccountRegistryChapterTitle
           number={2}
           title="이메일 인증"
           subtitle="이메일을 정확하게 적었는지 확인하는 과정입니다"
-          isEnable={selectedChapterIndex === 1}
+          isSelect={selectedChapterIndex === 1}
+          isEnable={allowChapterLength >= 2}
         />
         <HiddenContentView
           isShow={selectedChapterIndex === 1}
@@ -183,14 +159,15 @@ function AccountRegistryModal() {
       <Pressable
         style={styles.view.chapter}
         onPress={() => {
-          setSelectedChapterIndex(2);
+          if (allowChapterLength >= 3) setSelectedChapterIndex(2);
         }}
       >
         <AccountRegistryChapterTitle
           number={3}
           title="계정"
           subtitle="가계부를 저장하기 위한 계정 정보를 입력합니다"
-          isEnable={selectedChapterIndex === 2}
+          isSelect={selectedChapterIndex === 2}
+          isEnable={allowChapterLength >= 3}
         />
         <HiddenContentView
           isShow={selectedChapterIndex === 2}

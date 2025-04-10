@@ -3,7 +3,7 @@ import * as ReactNative from "react-native";
 
 interface Props {
   text: string | number;
-  style?: ReactNative.TextStyle;
+  style?: ReactNative.TextStyle | ReactNative.TextStyle[];
 }
 
 function Text(props: Props) {
@@ -12,7 +12,7 @@ function Text(props: Props) {
       style={[
         props.style,
         {
-          fontFamily: "Inter",
+          // fontFamily: "Inter",
           textAlignVertical: "center",
         },
       ]}
