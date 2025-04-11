@@ -41,6 +41,8 @@ function LedgerModal(props: Props) {
     }
 
     promise();
+
+    console.log(ledger);
   }, []);
 
   // const styles = StyleSheet.create({
@@ -92,7 +94,7 @@ function LedgerModal(props: Props) {
           text: "추가",
           body: <AddContent date={props.date} />,
         },
-        { text: "미리 추가", body: <PreAddContent /> },
+        { text: "미리 추가", body: <PreAddContent date={props.date} /> },
       ]}
     />
     // <View style={styles.view.component}>

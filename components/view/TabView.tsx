@@ -32,11 +32,11 @@ function TabView(props: Props) {
 
       tab: {
         flexDirection: "row",
-        gap: responsive(10),
+        gap: responsive(5),
       } as ViewStyle,
       tabItem: {
         paddingHorizontal: responsive(5),
-        borderBottomWidth: responsive(2),
+        // borderBottomWidth: responsive(2),
       } as ViewStyle,
       defaultTab: { borderBottomColor: "transparent" } as ViewStyle,
       selectedTab: {} as ViewStyle,
@@ -44,7 +44,7 @@ function TabView(props: Props) {
 
     text: StyleSheet.create({
       tabTitle: {
-        fontSize: responsive(18),
+        fontSize: responsive(20),
         fontWeight: "bold",
       } as TextStyle,
 

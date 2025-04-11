@@ -4,9 +4,11 @@ import Text from "./Text";
 import responsive from "@/tools/ratio";
 import BillTag from "./BillTag";
 import SolidLine from "../line/SolidLine";
+import { LedgerType } from "@/types/ledger";
 
 interface Props {
   date?: string;
+  type: LedgerType;
   origin?: string;
   amount?: number;
   memo?: string;
@@ -46,7 +48,7 @@ function Bill(props: Props) {
   return (
     <View style={styles.view.component}>
       <View style={styles.view.split}>
-        <BillTag tagType="spent" />
+        <BillTag tagType={props.type} />
 
         <View style={styles.view.content}>
           <Text text={props.origin ?? "-"} style={styles.text.common} />

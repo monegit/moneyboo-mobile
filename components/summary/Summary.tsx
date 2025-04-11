@@ -2,13 +2,14 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import responsive from "@/tools/ratio";
+import { LedgerType } from "@/types/ledger";
 // import { AccountType } from "@/types/account";
 
 interface Props {
   text: string;
   fontColor?: string;
   fontSize?: number;
-  type?: "spent" | "income";
+  type?: LedgerType;
   circleSize?: number;
   summaryDepth?: number;
   isBold?: boolean;

@@ -29,6 +29,7 @@ function LogContent(props: Props) {
       {props.ledger?.map((row, index) => (
         <Bill
           key={index}
+          type={row.type}
           date={row.date}
           origin={row.origin}
           memo={row.memo}

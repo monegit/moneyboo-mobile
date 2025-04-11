@@ -1,9 +1,7 @@
 import { type SQLiteDatabase } from "expo-sqlite";
 import moment, { Moment } from "moment";
-// import { Spent } from "./spent";
-import { LedgerStruct } from "./struct";
+import { LedgerType } from "@/types/ledger";
 
-type LedgerType = "spent" | "income";
 export interface Ledger {
   date: string;
   origin: string;

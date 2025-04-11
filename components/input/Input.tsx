@@ -70,9 +70,6 @@ function Input(props: Props) {
       paddingVertical:
         (props.style?.paddingVertical || props.style?.padding) ??
         responsive(10),
-
-      borderBottomWidth: 1.2,
-      borderColor: "#B7B8F1",
     } as ViewStyle,
     input: {
       flex: 1,
@@ -83,6 +80,10 @@ function Input(props: Props) {
 
       textAlign: props.style?.textAlign ?? "center",
       textAlignVertical: props.style?.textAlignVertical ?? "center",
+
+      paddingBottom: responsive(3),
+      borderBottomWidth: 1,
+      borderColor: "#B7B8F1",
       // lineHeight: responsive(24),
     } as TextStyle,
   });
@@ -124,14 +125,7 @@ function Input(props: Props) {
         onChangeText={(value) => {
           props.onChangeText?.(value);
           setTypedText(value);
-          // props.onChange(value);
         }}
-        // onChangeText={(value) => {
-        //   // setTypedText(value);
-        //   // console.log(value);
-        //   // console.log(value.nativeEvent.text);
-        //   // return value.nativeEvent.text;
-        // }} // 텍스트 입력 시
       />
       {props.suffixText && typedText ? (
         <Text

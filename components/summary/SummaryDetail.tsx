@@ -4,10 +4,11 @@ import React from "react";
 import { View, Text } from "react-native";
 import SolidLine from "../line/SolidLine";
 import Summary from "./Summary";
+import { LedgerType } from "@/types/ledger";
 // import { AccountType } from "@/types/account";
 
 interface Props {
-  form: "spent" | "income";
+  form: LedgerType;
   name: string;
   price: number;
   depth: number;

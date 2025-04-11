@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, TextStyle, View } from "react-native";
 import Text from "./Text";
 import responsive from "@/tools/ratio";
+import Svg, { Rect } from "react-native-svg";
 
 interface Props {
   tagType: "income" | "spent" | "schedule/spent" | "schedule/income";
@@ -14,7 +15,7 @@ function BillTag(props: Props) {
       padding: responsive(5),
 
       borderRadius: responsive(10),
-      borderWidth: responsive(1.5),
+      borderWidth: 2,
 
       backgroundColor: "white",
     },

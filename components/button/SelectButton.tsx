@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, View, ViewStyle } from "react-native";
 import Text from "../input/Text";
 import responsive from "@/tools/ratio";
 
+type SelectedButtonStyleType = {
+  selectedBackgroundColor?: string;
+  borderColor?: string;
+  textColor?: string;
+};
+
 type SelectButtonType = {
   text: string;
-  selectedBackgroundColor: string;
-  borderColor: string;
-  textColor: string;
+  type?: string;
+  style: SelectedButtonStyleType;
 };
 
 interface Props {
+  style?: ViewStyle;
+
   buttonData: SelectButtonType[];
   defaultIndex?: number;
-
-  style?: ViewStyle;
+  onSelectChange?: (data: SelectButtonType) => void;
 }
 
 function SelectButton(props: Props) {
@@ -44,12 +50,16 @@ function SelectButton(props: Props) {
     } as ViewStyle,
   });
 
+  // props.onSelectChange = (data) => {
+  // return props.buttonData[selectedButtonIndex];
+  // };
+
   return (
     <View
       style={[
         styles.view,
         {
-          borderColor: props.buttonData[selectedButtonIndex].borderColor,
+          borderColor: props.buttonData[selectedButtonIndex].style.borderColor,
         },
       ]}
     >
@@ -61,19 +71,22 @@ function SelectButton(props: Props) {
             {
               backgroundColor:
                 selectedButtonIndex === index
-                  ? button.selectedBackgroundColor
+                  ? button.style.selectedBackgroundColor
                   : "white",
             },
           ]}
           onPress={() => {
             setSelectedButtonIndex(index);
+            props.onSelectChange?.(button);
           }}
         >
           <Text
             text={button.text}
             style={{
               color:
-                selectedButtonIndex === index ? button.textColor : "#b6b6b6",
+                selectedButtonIndex === index
+                  ? button.style.textColor
+                  : "#b6b6b6",
               fontWeight: "bold",
               textAlign: "center",
             }}
